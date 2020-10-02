@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.umang.sporty.model.Admin;
 
+@SuppressWarnings("serial")
 public class MyUserDetails implements UserDetails{
 	
 	private Admin user;

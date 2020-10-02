@@ -37,8 +37,14 @@ public class PurchaseController {
 	}
 	
 	@PostMapping("/purchase")
-	public Purchase createPurchase(@RequestBody Purchase purchase) {
-		return service.createPurchase(purchase);
+	public ResponseEntity<Purchase> createPurchase(@RequestBody Purchase purchase) {
+		try {
+			return new ResponseEntity<>(service.createPurchase(purchase),HttpStatus.OK);
+		}catch(BusinessException e) {
+			errorMap=new LinkedMultiValueMap<>();
+			errorMap.add("errorMessage", e.getMessage());
+			return new ResponseEntity<>(null,errorMap,HttpStatus.NOT_FOUND);
+		}
 	}
 	
 	@GetMapping("/purchase/category/{category}")

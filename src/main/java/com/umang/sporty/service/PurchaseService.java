@@ -7,7 +7,7 @@ import com.umang.sporty.model.Purchase;
 
 public interface PurchaseService {
 	
-	public Purchase createPurchase(Purchase purchase);
+	public Purchase createPurchase(Purchase purchase) throws BusinessException;
 	public List<Purchase> getPurchaseByPurchaseDate(java.sql.Date date) throws BusinessException;
 	public List<Purchase> getPurchaseByCategory(String category) throws BusinessException;
 	public List<Purchase> getAllPurchase() throws BusinessException;

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.umang.sporty.exceptionHandler.BusinessException;
 import com.umang.sporty.model.Purchase;
+import com.umang.sporty.repository.ProductRepository;
 import com.umang.sporty.repository.PurchaseRepository;
 import com.umang.sporty.service.PurchaseService;
 @Service
@@ -17,9 +18,15 @@ public class PurchaseServiceImpl implements PurchaseService{
 	@Autowired
 	private PurchaseRepository repository;
 	
+	@Autowired
+	private ProductRepository productRepository;
+	
 	@Override
-	public Purchase createPurchase(Purchase purchase) {
+	public Purchase createPurchase(Purchase purchase) throws BusinessException {
 		purchase.setPurchaseDate(Date.valueOf(LocalDate.now()));
+		int productId = purchase.getProductId();
+		if(productRepository.findById(productId).isPresent() == false)
+			throw new BusinessException("No Product found with Product Id = "+productId);
 		return repository.save(purchase);
 	}
 

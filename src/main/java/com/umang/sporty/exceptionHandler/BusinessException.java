@@ -1,5 +1,6 @@
 package com.umang.sporty.exceptionHandler;
 
+@SuppressWarnings("serial")
 public class BusinessException extends Exception{
 
 	public BusinessException() {
