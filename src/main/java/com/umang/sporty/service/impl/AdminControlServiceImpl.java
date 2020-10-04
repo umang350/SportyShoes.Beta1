@@ -1,11 +1,18 @@
 package com.umang.sporty.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RestTemplate;
 
 import com.umang.sporty.config.MyUserDetails;
 import com.umang.sporty.exceptionHandler.BusinessException;
@@ -17,6 +24,24 @@ import com.umang.sporty.service.AdminService;
 public class AdminControlServiceImpl implements AdminService{
 	@Autowired
 	private AdminRepository repository;
+	private RestTemplate template = new RestTemplate();
+	
+	private String loginUrl="http://localhost:8080/login"; 
+	
+	public ResponseEntity<String> loginAdmin(String username, String password)  throws BusinessException {
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+
+		MultiValueMap<String, String> map= new LinkedMultiValueMap<String, String>();
+		map.add("username", username);
+		map.add("password", password);
+
+		HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<MultiValueMap<String, String>>(map, headers);
+
+		ResponseEntity<String> response = template.postForEntity(loginUrl, request , String.class);
+		
+		return response;
+	}
 	
 	public String updatePass(String oldPass, String newPass) throws BusinessException {
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();

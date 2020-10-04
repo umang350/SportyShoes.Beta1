@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,6 +19,32 @@ public class AdminController {
 	@Autowired
 	private AdminService service;
 	private MultiValueMap<String, String> errorMap;
+	
+	public static class UserLoginDetails{
+		public String username;
+		public String password;
+		public UserLoginDetails() {
+			
+		}
+		public void setUsername(String username) {
+			this.username = username;
+		}
+		public void setPassword(String password) {
+			this.password = password;
+		}
+		
+	}
+	
+	@PostMapping("/loginAdmin")
+	public ResponseEntity<String> loginAdmin(@RequestBody UserLoginDetails details){
+		try {
+			return service.loginAdmin(details.username,details.password);
+		} catch (BusinessException e) {
+			errorMap=new LinkedMultiValueMap<>();
+			errorMap.add("errorMessage", e.getMessage());
+			return new ResponseEntity<>(null,errorMap,HttpStatus.UNAUTHORIZED);
+		}
+	}
 	
 	public static class BodyReq{
 		public String oldPass;

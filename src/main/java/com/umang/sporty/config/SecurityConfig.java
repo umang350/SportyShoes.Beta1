@@ -43,17 +43,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
+        	.antMatchers("/loginAdmin").permitAll()
             .anyRequest().authenticated()
             .and()
             .formLogin().permitAll()
             .and()
             .logout().permitAll();
         http.csrf().disable();
-        http.formLogin()
-        .failureForwardUrl("/swagger-ui.html");
-        http.formLogin().failureForwardUrl("/login");
         http.formLogin().defaultSuccessUrl("/swagger-ui.html");
         http.formLogin().failureUrl("/login");
+        http.formLogin().failureForwardUrl("/login");
     }
 
 	  
