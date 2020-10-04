@@ -7,7 +7,7 @@ import com.umang.sporty.model.User;
 
 public interface UserService {
 	
-	public User createUser(User user);
+	public User createUser(User user) throws BusinessException;
 	public User updateUser(User user);
 	public User getUserById(int uid) throws BusinessException;;
 	public User getUserByUserEmail(String userEmail) throws BusinessException;

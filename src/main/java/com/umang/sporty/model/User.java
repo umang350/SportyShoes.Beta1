@@ -1,5 +1,6 @@
 package com.umang.sporty.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -13,10 +14,14 @@ public class User {
 	@Id
 	@GeneratedValue
 	private int uid;
+	@Column(nullable = false)
 	private String userName;
+	@Column(nullable = false)
 	private String userEmail;
+	@Column(nullable = false)
 	private String userPassword;
 	private String address;
+	@Column(nullable = false)
 	private String mobile;
 	
 	public User() {

@@ -27,8 +27,14 @@ public class UserController {
 	private MultiValueMap<String, String> errorMap;
 	
 	@PostMapping("/user")
-	public User createUser(@RequestBody User user) {
-		return service.createUser(user);
+	public ResponseEntity<User> createUser(@RequestBody User user) {
+		try {
+			return new ResponseEntity<>(service.createUser(user),HttpStatus.OK);
+		} catch (BusinessException e) {
+			errorMap=new LinkedMultiValueMap<>();
+			errorMap.add("errorMessage", e.getMessage());
+			return new ResponseEntity<>(null,errorMap,HttpStatus.NOT_FOUND);
+		}
 	}
 	
 	@PutMapping("/user")

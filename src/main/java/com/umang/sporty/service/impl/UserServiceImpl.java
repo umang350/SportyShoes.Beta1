@@ -19,8 +19,14 @@ public class UserServiceImpl implements UserService{
 	private UserRepository repository;
 	
 	@Override
-	public User createUser(User user) {
-		return repository.save(user);
+	public User createUser(User user) throws BusinessException {
+		String mob = user.getMobile();
+		if(mob.trim().matches("+?[0-9+]{10,12}")) {
+
+			return repository.save(user);
+		}else {
+			throw new BusinessException("Invalid Mobile Number");
+		}
 	}
 
 	@Override

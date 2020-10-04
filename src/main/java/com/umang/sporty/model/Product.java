@@ -1,5 +1,6 @@
 package com.umang.sporty.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -13,9 +14,13 @@ public class Product {
 	@Id
 	@GeneratedValue
 	private int pid;
+	@Column(nullable = false)
 	private String productName;
+	@Column(nullable = false)
 	private String category;
+	@Column(nullable = false)
 	private double price;
+	@Column(nullable = false)
 	private int stock;
 	
 	public Product() {

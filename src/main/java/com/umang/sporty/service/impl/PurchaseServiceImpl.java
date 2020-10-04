@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.umang.sporty.exceptionHandler.BusinessException;
+import com.umang.sporty.model.Product;
 import com.umang.sporty.model.Purchase;
 import com.umang.sporty.repository.ProductRepository;
 import com.umang.sporty.repository.PurchaseRepository;
@@ -27,6 +28,10 @@ public class PurchaseServiceImpl implements PurchaseService{
 		int productId = purchase.getProductId();
 		if(productRepository.findById(productId).isPresent() == false)
 			throw new BusinessException("No Product found with Product Id = "+productId);
+		String productCategory = productRepository.findById(productId).get().getCategory();
+		if(!productCategory.equals(purchase.getCategory())) {
+			throw new BusinessException("Category Mismatch Product category = "+productCategory+" | Purchase Category = "+ purchase.getCategory());
+		}
 		return repository.save(purchase);
 	}
 
