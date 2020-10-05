@@ -51,6 +51,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
             .logout().permitAll();
         http.csrf().disable();
         http.formLogin().defaultSuccessUrl("/swagger-ui.html");
+        http.formLogin().defaultSuccessUrl("/swagger-ui.html", true);
         http.formLogin().failureUrl("/login");
         http.formLogin().failureForwardUrl("/login");
     }

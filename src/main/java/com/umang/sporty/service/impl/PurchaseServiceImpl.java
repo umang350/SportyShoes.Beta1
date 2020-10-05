@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.umang.sporty.exceptionHandler.BusinessException;
-import com.umang.sporty.model.Product;
 import com.umang.sporty.model.Purchase;
 import com.umang.sporty.repository.ProductRepository;
 import com.umang.sporty.repository.PurchaseRepository;
