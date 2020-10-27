@@ -11,6 +11,7 @@
 	<groupId>com.umang.sporty</groupId>
 	<artifactId>SportyShoes.Beta1</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
 	<name>SportyShoes.Beta1</name>
 	<description>Beta 1</description>
 
