@@ -19,8 +19,7 @@ pipeline {
      steps {
        echo 'Deploying...'
        sh "mvn install"
-       sh "docker build /var/lib/jenkins/workspace/SportyShoes/ -t myimage"	
-	sh "docker run -p 4000:4000 -d myimage"
+       sh "nohup java -jar /var/lib/jenkins/workspace/${env.JOB_NAME}/target/SportyShoes.Beta1-0.0.1-SNAPSHOT.jar"	
      }
    }
   }
