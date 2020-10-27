@@ -19,7 +19,7 @@ pipeline {
      steps {
        echo 'Deploying...'
        sh "mvn install"
-       sh "java -jar /var/lib/jenkins/workspace/${env.JOB_NAME}/target/SportyShoes.Beta1-0.0.1-SNAPSHOT.jar"			
+       sh "nohup java -jar /var/lib/jenkins/workspace/${env.JOB_NAME}/target/SportyShoes.Beta1-0.0.1-SNAPSHOT.jar"			
      }
    }
   }
